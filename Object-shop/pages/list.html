@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+  <link rel="stylesheet" href="../bootstrap-3.3.7-dist/css/bootstrap.min.css">
+  <link rel="stylesheet" href="../css/base.css">
+  <link rel="stylesheet" href="../css/list.css">
+  <link rel="stylesheet" href="../jquery-pagination/pagination.css">
+  <style>
+    body {
+      background: rgb(108, 108, 112);
+    }
+
+    .breadcrumb {
+      padding-left: 6px;
+      padding-right: 6px;
+    }
+
+    h1 {
+      text-align: center;
+    }
+
+    .pagi {
+      text-align: center;
+      line-height: 38px;
+    }
+
+    .M-box {
+      width: 700px;
+      margin: 0 auto 30px;
+    }
+  </style>
+</head>
+
+<body>
+  <h1>商品橱</h1>
+
+  <div class="pagi">
+    商品大甩卖，买不了吃亏买不了上当！！！ 走一走，瞧一瞧喽！！新品上市大酬宾啦！！
+  </div>
+  <div class="M-box m-style"></div>
+  <div class="container">
+    <ul></ul>
+  </div>
+
+  <script src="../js/jquery.min.js"></script>
+  <script src="../js/tools.js"></script>
+  <script src="../jquery-pagination/jquery.pagination.js"></script>
+  <script>
+    let urlObj = getURLValue();
+    let line = 8;
+    setLi(urlObj.cat_one_id, 1, line);
+
+    function setLi(oneId, page, line) {
+      $.ajax({
+        url: '../server/goods_list.php',
+        type: 'get',
+        data: {
+          cat_one_id: oneId,
+          page: page,
+          line: line
+        },
+        dataType: 'json',
+        success: (res) => {
+          console.log(res)
+
+          let str = '';
+          res.forEach((item) => {
+            str += `
+            <li class="list-item">
+              <div class="panel panel-primary">
+                <div class="panel-body">
+                  <ol class="breadcrumb">
+                    <li><a href="#">${item.cat_one_id}</a></li>
+                    <li><a href="#">${item.cat_two_id}</a></li>
+                    <li class="active">${item.cat_three_id}</li>
+                  </ol>
+                </div>
+                <div class="panel-footer">
+                  <div class="row">
+                    <div class="">
+                      <div class="thumbnail">
+                        <img src="${item.goods_big_logo}" alt="...">
+                        <div class="caption">
+                          <h3>${item.goods_name}</h3>
+                          <p>
+                            <i class="glyphicon glyphicon-yen"></i>
+                            <span>${item.goods_price}</span>
+                          </p>
+                          <p><a href="javascript:;" class="btn btn-primary" role="button">查找相似商品</a> <a href="./detail.html?goods_id=${item.goods_id}" class="btn btn-danger" role="button">查看商品详情</a></p>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </li>
+                  `;
+          })
+
+          // 循环结束,将li写入到ul中
+          $('.container>ul').html(str);
+          $('.M-box').pagination({
+            mode: 'fixed',
+            pageCound: res[0].sumPage,
+            current: res[0].page,
+            showData: line,
+            prevCls: 'prev',
+            nextCls: 'next',
+            prevContent: '上一页',
+            nextContent: '下一页',
+            activeCls: 'active',
+            count: 5,
+            coping: true,
+            homePage: '首页',
+            endPage: '末页',
+            isHide: true,
+            jump: true,
+            callback: function (res) {
+              let pageNum = res.getCurrent();
+              setLi(urlObj.cat_one_id, pageNum, line);
+            }
+          });
+        }
+      })
+    }
+
+    function getURLValue() {
+      var str = decodeURI(window.location.search).substr(1);
+      var obj = {};
+      var arr1 = str.split('&');
+      arr1.forEach(function (v) {
+        var arr2 = v.split('=');
+        obj[arr2[0]] = arr2[1];
+      })
+      return obj;
+    }
+  </script>
+</body>
+
+</html>

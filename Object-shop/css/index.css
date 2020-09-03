@@ -1,0 +1,308 @@
+header {
+    width: 100%;
+    height: 100px;
+}
+
+.head {
+    width: 1000px;
+    height: 100px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+}
+* {
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    background: rgb(108, 108, 112);
+}
+
+header {
+    width: 100%;
+    height: 100px;
+    margin-bottom: 20px;
+    overflow: hidden;
+    border-bottom: 30px solid #000;
+}
+
+.head {
+    width: 1200px;
+    height: 100px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin: 0 auto;
+}
+
+.head h1 {
+    padding-bottom: 20px;
+}
+
+.head button {
+    width: 80px;
+    height: 30px;
+    border: none;
+    margin-left: 10px;
+    outline: none;
+    border-radius: 10px;
+}
+
+.seach {
+    width: 300px;
+    height: 30px;
+    border-radius: 20px;
+    outline: none;
+    text-indent: 10px;
+    border: none;
+}
+
+.nav {
+    width: 100%;
+    background: rgba(0, 0, 0, .5);
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 10;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.nav .inner-nav {
+    width: 100%;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+}
+
+
+
+
+
+ol,
+ul,
+li {
+    list-style: none;
+}
+
+a,
+a:hover,
+a:active {
+    text-decoration: none;
+    color: #fff;
+}
+
+.banner img {
+    display: block;
+    width: 100%;
+    height: 100%;
+}
+
+.banner {
+    width: 1000px;
+    height: 400px;
+    position: relative;
+    margin: 30px auto;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.banner ul {
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+}
+
+.banner ul li {
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+    opacity: 0;
+    /* 过度属性也可以实现 move运动函数也可以实现 */
+    transition: all 2s linear;
+}
+
+
+.banner ol {
+    padding: 0 10px;
+    height: 50px;
+    background: rgba(0, 0, 0, .5);
+    position: absolute;
+    bottom: 30px;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+    border-radius: 15px;
+    z-index: 1000;
+}
+
+.banner ol li {
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    background: #fff;
+    cursor: pointer;
+    margin: 0 10px;
+}
+
+.banner ol li.active {
+    background: red;
+}
+
+.banner div {
+    width: 100%;
+    height: 50px;
+    position: absolute;
+    left: 0px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.banner div a {
+    width: 40px;
+    height: 40px;
+    /* font-size: 30px; */
+    font-weight: 900;
+    background: rgba(0, 0, 0, .5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 50%;
+    margin: 0 10px;
+}
+
+.nav .inner-nav p a {
+    position: relative;
+    background: rgba(0, 0, 0, .5);
+    width: 100px;
+}
+
+.setmsg {
+    width: 240px;
+    height: 400px;
+    border: 5px solid gray;
+    position: fixed;
+    left: 10px;
+    top: 130px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: center;
+}
+
+.setmsg a {
+    color: rgb(235, 162, 162);
+}
+
+.rightfixed {
+    width: 240px;
+    height: 400px;
+    border: 5px solid gray;
+    position: fixed;
+    right: 10px;
+    top: 130px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.inner {
+    font-size: 13px;
+    width: 100%;
+    padding: 10px 10px 30px 10px;
+    border-bottom: 20px solid rgb(57, 194, 218);
+
+}
+
+.inner a {
+    color: rgb(235, 162, 162);
+
+}
+
+.tabcard {
+    width: 100%;
+    border: 2px solid red;
+    height: 200px;
+}
+
+.tabcard ul {
+    margin: 0;
+    width: 100%;
+    height: 30px;
+    border-bottom: 2px solid red;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+}
+
+.tabcard ul li {
+    width: 100%;
+    height: 100%;
+    text-align: center;
+    line-height: 30px;
+}
+
+.tabcard ol {
+    width: 100%;
+    height: calc(100% - 30px);
+    overflow: hidden;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+    flex: 1;
+    position: relative;
+}
+
+
+.tabcard ol li {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: absolute;
+    top: 0;
+    left: 0;
+    padding: 20px;
+    display: none;
+
+}
+
+.tabcard ul li:nth-child(2) {
+    border-right: 4px solid gray;
+    border-left: 4px solid gray;
+}
+
+.new {
+    background: rgb(118, 147, 158);
+}
+
+.find {
+    background: rgb(212, 180, 180);
+}
+
+.about {
+    background: rgb(192, 70, 70);
+}
+
+.tabcard ul li.active {
+    background: skyblue;
+    color: red;
+}
+
+.tabcard ol li.active {
+    display: flex;
+}

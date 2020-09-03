@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+  <link rel="stylesheet" href="../bootstrap-3.3.7-dist/css/bootstrap.min.css">
+  <link rel="stylesheet" href="../css/base.css">
+  <link rel="stylesheet" href="../css/login.css">
+  <link rel="stylesheet" href="../css/animate.min.css">
+  <style>
+    body {
+      background: rgb(108, 108, 112);
+    }
+
+    .inputWidth {
+      width: 200px;
+      display: inline-block;
+    }
+
+    .spanspan {
+      color: red;
+      font-size: 20px;
+    }
+
+    .cover {
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, .5);
+    }
+
+    h1 {
+      text-align: center;
+      margin-bottom: 50px;
+    }
+
+    .login {
+      width: 100%;
+    }
+
+    .form-horizontal {
+      width: 100%;
+      display: flex;
+      justify-content: center;
+    }
+
+    button {
+      outline: none;
+    }
+
+    .goindex {
+      color: white;
+      cursor: pointer;
+      display: inline-block;
+      position: fixed;
+      right: 150px;
+    }
+  </style>
+</head>
+
+<body>
+
+  <div class="jumbotron">
+    <h1 class="animated slideInDown">欢迎注册 远大理想 SHOP</h1>
+    <div class="login">
+      <div class="form-horizontal">
+        <div class="form-group">
+          <label for="username" class="col-sm-2 control-label">用户名</label>
+          <div class="col-sm-10">
+            <input type="text" name="name" class="form-control inputWidth" placeholder="用户名">
+            <span name="sspan" class="spanspan"></span>
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="password" class="col-sm-2 control-label">密码</label>
+          <div class="col-sm-10">
+            <input type="password" name="pwd1" class="form-control inputWidth" placeholder="密码">
+            <span class="spanspan" name="pwd1Span"></span>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="password" class="col-sm-2 control-label">确认密码</label>
+          <div class="col-sm-10">
+            <input type="password" name="pwd2" class="form-control inputWidth" placeholder="确认密码">
+            <span class="spanspan"></span>
+
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="password" class="col-sm-2 control-label">验证码</label>
+          <div class="col-sm-10">
+            <input type="text" name="vc" class="form-control inputWidth" placeholder="验证码"> <a id="vc"></a><br>
+            <span class="spanspan" name="vcSpan"></span>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <div class="col-sm-offset-2 col-sm-10">
+            <button class="btn btn-default">注册</button>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+  <div class="goindex">返回首页</div>
+
+
+  <script src="../js/jquery.min.js"></script>
+  <script src="../js/tools.js"></script>
+  <script>
+    document.documentElement.onselectstart = function () {
+      return false;
+    };
+    $('#vc').html(setVc()).click(function () {
+      $(this).html(setVc());
+    });
+    $('button').click(() => {
+      let name = $('[name="name"]').val();
+      let pwd1 = $('[name="pwd1"]').val();
+      let pwd2 = $('[name="pwd2"]').val();
+      let vc1 = $('[name="vc"]').val();
+      let vc2 = $('#vc').html();
+
+      if (pwd1 !== pwd2) {
+        alert('您两次输入的密码不一致，点击确定重新输入');
+        return;
+      }
+      if (vc1.toUpperCase() !== vc2.toUpperCase()) {
+        alert('您输入的验证码不正确，请重新输入');
+        return;
+      }
+      $.ajax({
+        url: '../server/goods_res.php',
+        type: 'post',
+        data: {
+          userName: name,
+          userPwd: pwd1
+        },
+        dataType: 'json',
+        success: (res) => {
+          if (res.result === 1) {
+            window.alert('恭喜您，注册成功，点击确定跳转首页面');
+            window.location.href = '../index.html';
+          } else {
+            window.alert('抱歉,用户名重复,点击确定继续注册');
+          }
+        }
+      })
+    })
+
+    $('[name="name"]').on('change', function () {
+      const iptval = $(this).val();
+      $.ajax({
+        url: '../server/goods_select.php',
+        data: {
+          userName: iptval
+        },
+        dataType: 'json',
+        type: 'post',
+        success: (res) => {
+          $('[name="sspan"]').html(res.msg);
+        }
+      })
+    })
+    $('.goindex').click(() => {
+      window.location.href = '../index.html';
+    })
+  </script>
+</body>
+
+</html>

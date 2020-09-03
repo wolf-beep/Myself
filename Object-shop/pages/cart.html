@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+  <link rel="stylesheet" href="../bootstrap-3.3.7-dist/css/bootstrap.min.css">
+  <link rel="stylesheet" href="../css/base.css">
+  <link rel="stylesheet" href="../css/cart.css">
+  <link rel="stylesheet" href="../css/animate.min.css">
+  <style>
+    body {
+      background: rgb(108, 108, 112);
+    }
+
+    .cart {
+      text-align: center;
+    }
+
+    .endAdd {
+      color: gray;
+      display: flex;
+      justify-content: flex-end;
+      align-items: center;
+
+    }
+
+    .endAdd span {
+      color: red;
+    }
+
+    input,
+    button {
+      outline: none;
+    }
+  </style>
+</head>
+
+<body>
+  <h1 class="animated bounceInLeft cart">购物车</h1>
+
+  <div class="container">
+
+  </div>
+
+  <script src="../js/jquery.min.js"></script>
+  <script>
+    setPage();
+
+
+    function setPage() {
+      if (JSON.parse(localStorage.getItem('cart')).lenght == 0) {
+        $('.container').html('<h1>购物车里什么都没有哦！赶紧去采购吧！</h1>');
+      } else {
+        const arr = JSON.parse(localStorage.getItem('cart'));
+        let z = 0;
+        let j = 0;
+        let money = 0;
+        let str = `<div class="panel panel-info ">
+        <div class="panel-body bg-info">
+          <div class="checkbox">
+            <button name="all" class="del btn btn-danger">全选</button>
+            <button name="no" class="del btn btn-danger">不选</button>
+            <button name="not" class="del btn btn-danger">反选</button>
+            <a href="../index.html" name="back-index" class="del btn btn-danger">返回首页</a>
+          </div>
+        </div>
+        <div class="panel-footer">
+          <ul class="cart-list">`;
+        arr.forEach((item) => {
+          if (item.buy) {
+            z++;
+            j += item.num;
+            money += item.num * item.goods_price;
+          }
+          str += `
+        <li class="cart-item">
+              <div class="left">
+                <input name="box" index="${item.goods_id}" type="checkbox" ${item.buy ? 'checked' : ''}>
+              </div>
+              <div class="right">
+                <div class="media">
+                  <div class="media-left">
+                    <a href="#">
+                      <img class="media-object" src="${item.goods_small_logo}" alt="...">
+                    </a>
+                  </div>
+                  <div class="media-body">
+                    <h4 class="media-heading">${item.goods_name}</h4>
+                    <p>
+                      <i class="glyphicon glyphicon-yen"></i>
+                      <span>${item.goods_price}</span>
+                    </p>
+                    <div class="btn-group pull-right" role="group" aria-label="...">
+                      <button type="button" name="jian" index="${item.goods_id}" class="btn btn-default" ${item.num === 1 ? 'disabled' : ''}>-</button>
+                      <button type="button" class="btn btn-default" disabled>${item.num}</button>
+                      <button type="button" name="jia" index="${item.goods_id}" class="btn btn-default">+</button>
+                    </div>
+                    <button  name="del" index="${item.goods_id}" class="del btn btn-danger" ${item.num === item.goods_number ? 'disabled' : ''}>我不要了</button>
+
+                  </div>
+                </div>
+              </div>
+            </li>
+        
+        `;
+        })
+        str += `</ul>
+        </div>
+        <div class="endAdd">
+          <h2>您一共购买<span>${z}</span>种商品</h2>
+          <h2>共<span>${j}</span>件</h2>
+          <h2>一共需要支付<span>${money.toFixed(2)}</span>元</h2>
+        </div>
+        <button class="pay">支付</button>
+      </div>`;
+        $('.container').html(str);
+      }
+    }
+    $('.container')[0].addEventListener('click', e => {
+      let arr = JSON.parse(localStorage.getItem('cart'));
+      if (e.target.getAttribute('name') === 'all') {
+        arr.forEach(item => {
+          item.buy = true;
+        })
+      }
+      if (e.target.getAttribute('name') === 'no') {
+        arr.forEach(item => {
+          item.buy = false;
+        })
+      }
+      if (e.target.getAttribute('name') === 'not') {
+        arr.forEach(item => {
+          item.buy = !(item.buy);
+        })
+      }
+      if (e.target.getAttribute('name') === 'box') {
+        arr.forEach((item) => {
+          if (item.goods_id == e.target.getAttribute('index')) {
+            item.buy = e.target.checked;
+          }
+        })
+      }
+      if (e.target.getAttribute('name') === 'del') {
+        arr.forEach((item, key) => {
+          if (item.goods_id == e.target.getAttribute('index')) {
+            arr.splice(key, 1);
+          }
+        })
+      }
+      if (e.target.getAttribute('name') === 'jia') {
+        arr.forEach((item, key) => {
+          if (item.goods_id == e.target.getAttribute('index')) {
+            item.num++;
+          }
+        })
+      }
+      if (e.target.getAttribute('name') === 'jian') {
+        arr.forEach((item, key) => {
+          if (item.goods_id == e.target.getAttribute('index')) {
+            item.num--;
+          }
+        })
+      }
+      localStorage.setItem('cart', JSON.stringify(arr));
+      setPage();
+
+    })
+    $('[name="back-index"]').click(() => {
+      window.location.href = '../index.html';
+    })
+  </script>
+</body>
+
+</html>

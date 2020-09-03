@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+  <link rel="stylesheet" href="../bootstrap-3.3.7-dist/css/bootstrap.min.css">
+  <link rel="stylesheet" href="../css/base.css">
+  <link rel="stylesheet" href="../css/detail.css">
+  <style>
+    .logo {
+      text-align: center;
+      text-shadow: 1px 1px gray;
+    }
+
+    body {
+      background: rgb(108, 108, 112);
+    }
+  </style>
+</head>
+
+<body>
+  <h1 class="logo">商品详情</h1>
+
+  <div class="container">
+    <div class="panel panel-default">
+    </div>
+  </div>
+
+  <script src="../js/jquery.min.js"></script>
+  <script src="../js/tools.js"></script>
+  <script>
+    const urlObj = getURLValue();
+    let msg = {};
+    $.ajax({
+      url: '../server/goods_detail.php',
+      type: 'post',
+      data: {
+        goods_id: urlObj.goods_id
+      },
+      dataType: 'json',
+      success: res => {
+        msg = res;
+        let str = `
+        <div class="panel-heading">
+            <h3 class="panel-title">商品详细信息</h3>
+          </div>
+          <div class="panel-body">
+            <div class="media">
+              <div class="media-left">
+                <a href="#">
+                  <img class="media-object"
+                    src="${res.goods_small_logo}"
+                    alt="...">
+                </a>
+              </div>
+              <div class="media-body">
+                <h4 class="media-heading">${res.goods_name}</h4>
+                <p>
+                  <i class="glyphicon glyphicon-yen"></i>
+                  <span>${res.goods_price}</span>
+                </p>
+                <div class="btn-group" role="group" aria-label="...">
+                  <button type="button" class="btn btn-default">XL</button>
+                  <button type="button" class="btn btn-default">L</button>
+                  <button type="button" class="btn btn-default">M</button>
+                  <button type="button" class="btn btn-default">S</button>
+                  <button type="button" class="btn btn-default">XS</button>
+                </div>
+                <p>
+                  <a href="javascript:;" class="btn btn-warning btn-lg" role="button">立即购买</a>
+                  <a href="javascript:;" class="btn btn-danger btn-lg" role="button" name="goCart">加入购物车</a>
+                </p>
+              </div>
+            </div>
+            <ul class="nav nav-tabs">
+              <li role="presentation" class="active"><a href="#">商品详细信息</a></li>
+              <li role="presentation"><a href="#">商品参数信息</a></li>
+              <li role="presentation"><a href="#">相关商品</a></li>
+            </ul>
+            <div>
+              ${res.goods_introduce}
+            </div>
+          </div>
+
+                  `;
+        $('.panel').html(str);
+      }
+    })
+
+    $('.panel').on('click', '[name="goCart"]', () => {
+      const cookieObj = myGetCookie();
+      if (cookieObj.login === undefined) {
+        let bool = window.confirm('您还没有登录,点击确定去登录，点击取消继续浏览当前页面');
+        if (bool) {
+          window.location.href = `./login.html?url=${window.location.href}`;
+        }
+      } else {
+        if (localStorage.getItem('cart') === null) {
+          msg.num = 1;
+          msg.buy = true;
+          const arr = [];
+          arr.push(msg);
+          localStorage.setItem('cart', JSON.stringify(arr));
+        } else {
+          let arr = JSON.parse(localStorage.getItem('cart'));
+          let bool = true;
+          arr.forEach(item => {
+            if (item.goods_id === msg.goods_id) {
+              item.num++;
+              bool = false;
+            }
+          })
+          if (bool) {
+            msg.num = 1;
+            msg.buy = true;
+            arr.push(msg);
+          }
+          localStorage.setItem('cart', JSON.stringify(arr));
+        }
+        window.location.href = './cart.html';
+      }
+    })
+  </script>
+
+</body>
+
+</html>

@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+  <link rel="stylesheet" href="../bootstrap-3.3.7-dist/css/bootstrap.min.css">
+  <link rel="stylesheet" href="../css/base.css">
+  <link rel="stylesheet" href="../css/login.css">
+  <link rel="stylesheet" href="../css/animate.min.css">
+  <style>
+    body {
+      width: 100%;
+      height: 100%;
+      overflow: hidden;
+    }
+
+
+    .succ {
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, .4);
+      position: fixed;
+      top: 0;
+      left: 0;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      display: none;
+      color: sandybrown;
+    }
+
+    #username,
+    #password {
+      width: 600px;
+    }
+
+    .biao {
+      padding-left: 180px;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="jumbotron">
+    <h1 class="animated bounceInRight biao">欢迎光临 远大理想 SHOP</h1>
+    <div class="login">
+      <form class="form-horizontal">
+        <div class="form-group">
+          <label for="username" class="col-sm-2 control-label">用户名</label>
+          <div class="col-sm-10">
+            <input type="text" class="form-control" id="username" placeholder="用户名">
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="password" class="col-sm-2 control-label">密码</label>
+          <div class="col-sm-10">
+            <input type="password" class="form-control" id="password" placeholder="密码">
+          </div>
+        </div>
+
+        <div class="form-group">
+          <div class="col-sm-offset-2 col-sm-10">
+            <button type="submit" class="btn btn-default" name="login">登录</button>
+            <a href="../index.html" class="btn btn-default" name="index">返回首页</a>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+  <div class="succ">
+    <p>
+      恭喜您，登录成功，5秒钟后将返回首页面。
+    </p>
+    <a name="back" href="JavaScript:;">点击返回原页面</a>
+  </div>
+
+
+  <script src="../js/jquery.min.js"></script>
+  <script src="../js/tools.js"></script>
+  <script>
+    $('[name="login"]').click(function (e) {
+      e.preventDefault();
+      let name = $('#username').val();
+      let pwd = $('#password').val();
+      $.ajax({
+        url: '../server/goods_login.php',
+        type: 'post',
+        dataType: 'json',
+        data: {
+          userName: name,
+          userPwd: pwd
+        },
+        success: res => {
+          if (res.result === 1) {
+
+            mySetCookie('login', 1, 7 * 24 * 60 * 60);
+
+            $('.succ').css({
+              display: 'flex'
+            });
+            let time = 5;
+            let set = setInterval(() => {
+              time--;
+              $('.succ>p').html(`恭喜您，登录成功，${time}秒钟后将返回首页面。`);
+              if (time === 0) {
+                clearInterval(set);
+                window.location.href = '../index.html';
+              }
+            }, 1000);
+
+          } else {
+            window.alert('您输入的密码或账号有误,请重新登录');
+            return;
+          }
+        }
+
+      })
+    })
+    $('[name="back"]').click(() => {
+      let str = window.location.search;
+      let num = str.indexOf('=') + 1;
+      let oldUrl = window.location.search.substr(num);
+      window.location.href = oldUrl;
+    })
+
+    function mySetCookie(key, value, time) {
+      const nowTime = new Date();
+      let timeStamp = nowTime.getTime();
+      timeStamp -= 8 * 60 * 60 * 1000;
+      timeStamp += time * 1000;
+      nowTime.setTime(timeStamp);
+      let t = time === undefined ? '' : nowTime;
+      document.cookie = `${key}=${value};expires=${t};path=/`;
+    }
+  </script>
+</body>
+
+
+</html>

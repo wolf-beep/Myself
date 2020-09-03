@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <meta name="referrer" content="no-referrer">
+  <title>Document</title>
+  <link rel="stylesheet" href="./bootstrap-3.3.7-dist/css/bootstrap.min.css">
+  <link rel="stylesheet" href="./css/animate.min.css">
+  <link rel="stylesheet" href="./index.css">
+  <link rel="stylesheet" href="./falis.css">
+  <style>
+    .backTop {
+      display: inline-block;
+      width: 70px;
+      height: 70px;
+      border-radius: 50%;
+      background: pink;
+      position: fixed;
+      bottom: 100px;
+      right: 100px;
+      cursor: pointer;
+      color: white;
+      font-size: 16px;
+      text-align: center;
+      line-height: 65px;
+      display: none;
+    }
+  </style>
+</head>
+
+<body>
+  <header>
+    <div class="head">
+      <h1 class="animated bounceInLeft">远大理想SHOP</h1>
+      <p class="animated bounceInDown">
+        <input type="text" class="seach">
+        <button name="seach">搜索</button>
+      </p>
+      <p class="animated bounceInRight">
+        <button name="on">登录</button>
+        <button name="add">注册</button>
+        <button name="exit">退出登录</button>
+        <button name="cart">购物车</button>
+      </p>
+    </div>
+  </header>
+
+  <div class="banner">
+    <div class="nav">
+      <div class="inner-nav">
+        <p><a class="btn animated flipInX" href="./pages/list.html?cat_one_id=食品酒水" role="button">食品酒水</a></p>
+        <p><a class="btn  animated flipInX" href="./pages/list.html?cat_one_id=童装玩具" role="button">童装玩具</a></p>
+        <p><a class="btn  animated flipInX" href="./pages/list.html?cat_one_id=家装建材" role="button">家装建材</a></p>
+        <p><a class="btn  animated flipInX" href="./pages/list.html?cat_one_id=奶粉尿裤" role="button">奶粉尿裤</a></p>
+        <p><a class="btn  animated flipInX" href="./pages/list.html?cat_one_id=其他产品" role="button">其他产品</a></p>
+      </div>
+    </div>
+    <ul></ul>
+    <ol></ol>
+    <div>
+      <a name="left" href="JavaScript:;">&lt;</a>
+      <a name="right" href="JavaScript:;">&gt;</a>
+    </div>
+  </div>
+  <div class="setmsg">
+    <a href="javascipt:;">人生如梦,朋友如雾</a>
+    <a href="javascipt:;">人生如梦,朋友如雾</a>
+    <a href="javascipt:;">人生如梦,朋友如雾</a>
+    <a href="javascipt:;">人生如梦,朋友如雾</a>
+    <a href="javascipt:;">人生如梦,朋友如雾</a>
+    <a href="javascipt:;">人生如梦,朋友如雾</a>
+    <a href="javascipt:;">人生如梦,朋友如雾</a>
+    <a href="javascipt:;">人生如梦,朋友如雾</a>
+    <a href="javascipt:;">人生如梦,朋友如雾</a>
+    <a href="javascipt:;">人生如梦,朋友如雾</a>
+    <a href="javascipt:;">人生如梦,朋友如雾</a>
+    <a href="javascipt:;">人生如梦,朋友如雾</a>
+    <a href="javascipt:;">人生如梦,朋友如雾</a>
+    <a href="javascipt:;">人生如梦,朋友如雾</a>
+    <a href="javascipt:;">人生如梦,朋友如雾</a>
+  </div>
+  <div class="rightfixed">
+    <div class="inner">
+      <a href="javacript:;">想见你只想见你,未来过去,我只想见你。</a>
+      <a href="javacript:;">想见你只想见你,未来过去,我只想见你。</a>
+      <a href="javacript:;">想见你只想见你,未来过去,我只想见你。</a>
+      <a href="javacript:;">想见你只想见你,未来过去,我只想见你。</a>
+      <a href="javacript:;">想见你只想见你,未来过去,我只想见你。</a>
+    </div>
+    <div class="tabcard">
+      <ul>
+        <li class="active">新闻</li>
+        <li>发现</li>
+        <li>关于我们</li>
+      </ul>
+      <ol>
+        <li class="active new">
+          你说我的眼睛灿若星辰，那是因为你是星辰，而我的眼中只有你。
+        </li>
+        <li class="find">
+          我喜欢那些闪光的东西，比如冬日的雪花，天上的星星，还有你的眼睛。
+        </li>
+        <li class="about">
+          像华丽的燕尾蝶，失去往日的光彩、变作一片枯死的叶。旋转，飞扬、最后，深陷于龌龊的沼泽。
+        </li>
+      </ol>
+    </div>
+  </div>
+  <div class="backTop">返回顶部</div>
+
+  <section>
+    <div class="box">
+      <ul></ul>
+      <ul></ul>
+      <ul></ul>
+      <ul></ul>
+    </div>
+  </section>
+
+  <script src="./js/jquery.min.js"></script>
+  <script src="./js/tools.js"></script>
+  <script src="./js/demo(opacity).js"></script>
+  <script src="./js/use.js"></script>
+  <script src="./falis.js"></script>
+  <script>
+    document.documentElement.onselectstart = function () {
+      return false;
+    };
+    $('[name="add"]').click(function () {
+      window.location.href = './pages/res.html';
+    });
+    $('[name="on"]').click(function () {
+      window.location.href = `./pages/login.html?url=${window.location.href}`;
+    })
+
+    $('[name="exit"]').click(() => {
+      mySetCookie('login', 1, -1);
+    })
+    $('[name="cart"]').click(function () {
+      const cookieObj = myGetCookie();
+      if (cookieObj.login === undefined) {
+        let bool = window.confirm('您还没有登录，点击确定，跳转登录页面，点击取消继续浏览当前页面');
+        if (bool) {
+          window.location.href = './pages/login.html';
+        }
+      } else {
+        window.location.href = './pages/cart.html';
+      }
+    })
+
+    function myGetCookie() {
+      let str = document.cookie;
+      var obj = {};
+      var arr1 = str.split('; ');
+      arr1.forEach(function (v) {
+        var arr2 = v.split('=');
+        obj[arr2[0]] = arr2[1];
+      })
+      return obj;
+    }
+
+    function mySetCookie(key, value, time) {
+      const nowTime = new Date();
+      let timeStamp = nowTime.getTime();
+      timeStamp -= 8 * 60 * 60 * 1000;
+      timeStamp += time * 1000;
+      nowTime.setTime(timeStamp);
+      let t = time === undefined ? '' : nowTime;
+      document.cookie = `${key}=${value};expires=${t};path=/`;
+
+    }
+
+    // tab选项卡
+    $('.tabcard>ul>li').click(function () {
+      $(this).addClass('active').siblings().removeClass('active').parent().next().find('li').removeClass(
+        'active').eq($(this).index()).addClass('active');
+    })
+
+    $(window).scroll(function () {
+      if ($(window).scrollTop() >= 500) {
+        $('.backTop').fadeIn();
+      }
+      if ($(window).scrollTop() < 500) {
+        $('.backTop').fadeOut();
+      }
+
+    })
+    $('.backTop').click(function () {
+      $('html').animate({
+        scrollTop: 0
+      }, 1000);
+    })
+  </script>
+
+</body>
+
+</html>
